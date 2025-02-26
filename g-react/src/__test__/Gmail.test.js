@@ -51,13 +51,12 @@ describe("GmailDashboard", () => {
   
   test("opens and closes the drawer", async() => {
 
-  
   useMediaQueryMock.mockReturnValue(true)
     render(<GmailDashboard />);
     expect(useMediaQueryMock).toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("menu-button"));
     expect(screen.getByTestId("drawer")).toBeInTheDocument();
-    fireEvent.click(screen.getByTestId("menu-button"));
+    fireEvent.click(screen.getByTestId("All-Email"));
     await waitFor(() => expect(screen.queryByTestId("drawer")).not.toBeInTheDocument());
 
   });

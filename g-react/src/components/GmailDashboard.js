@@ -208,6 +208,9 @@ const GmailDashboard = () => {
       <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)} data-testid="drawer">
         <Box width={250}>
           <List>
+          <ListItem button onClick={() => setDrawerOpen(false)} data-testid="All-Email">
+              <ListItemText primary="All Email" />
+            </ListItem>
             {labels.map((label) => (
               <ListItem
                 button
@@ -222,6 +225,7 @@ const GmailDashboard = () => {
                 <ListItemText primary={label.name} />
               </ListItem>
             ))}
+            
           </List>
         </Box>
       </Drawer>
