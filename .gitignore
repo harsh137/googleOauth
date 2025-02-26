@@ -1,0 +1,70 @@
+# General Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+./gmail4/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor files
+.vscode/
+.idea/
+*.iml
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# React & React Native build files
+*.expo/
+.expo-shared/
+android/.gradle/
+android/app/build/
+ios/Pods/
+ios/build/
+ios/.bundle/
+ios/.DS_Store
+ios/*.xcodeproj/project.xcworkspace/
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/Podfile.lock
+
+# React Native Metro bundler files
+.expo/
+.expo-shared/
+metro.config.js
+babel.config.js
+
+# React production build
+g-react/build/
+
+# Node.js build files
+gmail4/dist/
+gmail4/out/
+
+# Miscellaneous
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace

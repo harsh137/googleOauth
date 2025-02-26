@@ -1,0 +1,55 @@
+{
+	"name": "g-react",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@emotion/react": "^11.14.0",
+		"@emotion/styled": "^11.14.0",
+		"@mui/icons-material": "^6.4.4",
+		"@mui/material": "^6.4.3",
+		"cra-template": "1.2.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-pull-to-refresh": "^2.0.1",
+		"react-router-dom": "^7.2.0",
+		"react-scripts": "5.0.1"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "jest",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.26.9",
+		"@babel/preset-react": "^7.26.3",
+		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/react": "^16.2.0",
+		"@testing-library/user-event": "^14.6.1",
+		"babel-jest": "^29.7.0",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
+		"jest-fetch-mock": "^3.0.3",
+		"jest-fixed-jsdom": "^0.0.9",
+		"msw": "^2.7.1",
+		"react-test-renderer": "^19.0.0"
+	}
+}

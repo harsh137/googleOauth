@@ -1,0 +1,46 @@
+{
+  "_events": {},
+  "_eventsCount": 0,
+  "credentials": {
+    "access_token": "ya29.a0AXeO80R34PuRitHse87h8Eg-hPTBc_dRgr9j1Qbn6hy6ficKPiOTO9EkbEKjUVEvkX6T9wV4S3VCrCmMeqdEckVhW3HslxMNNz_W9cWur30Lds9sGIu04a6Ff726mxqte_5k0RGizMP9Wrk7EUCHICWcTlFR0__ARn4RGP5paCgYKAT4SARISFQHGX2Mi6TIjZ3z9tEdJPMlm-9X0Dg0175",
+    "refresh_token": "1//0g4r9NulGR2erCgYIARAAGBASNwF-L9IrVZP_PIYjI0kR1nVYiHfIrBqbzqirj0LH2eESJmk3CCagdb0wrnDdwlQdVyTw8gnqIjU",
+    "scope": "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/gmail.send",
+    "token_type": "Bearer",
+    "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZhMDcyZjc1Nzg0NjQyNjE1MDg3YzcxODJjMTAxMzQxZTE4ZjdhM2EiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDU1MDIwODYwNDk4LW0yMmVxNXI5NnB0NzdtaGhmYjNoYzc2bDk3bGU5cmY3LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA1NTAyMDg2MDQ5OC1tMjJlcTVyOTZwdDc3bWhoZmIzaGM3Nmw5N2xlOXJmNy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMzAyNTIwNTQ0NDU4MDY3Mzk2NCIsImVtYWlsIjoicmFtZ3VwdGExMjM0NTY3ODkwMTIzNDVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJMdnZ5SWFqRFc4NzNLTDdzWWVra3F3IiwibmFtZSI6IkFiaGlzaGVrIFNldGgiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSnRwZGVoNkZNeFRWTWwyQm42ZkJiNjA3ZDA2TmVyYzJIZG52WVlrWlB6TUJwdVRBPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkFiaGlzaGVrIiwiZmFtaWx5X25hbWUiOiJTZXRoIiwiaWF0IjoxNzM4NzI2NzM1LCJleHAiOjE3Mzg3MzAzMzV9.Ue_wJ8fzH8B2kc_S2q83mGfLRC2OKp6rFa0VY8ZKc5htG_TLRF8oQnu_Aj7CT5mwdRVxpoXiBDvvBL7j6IlxMFsYW_nTJvnVJAjINJdFpUnkr5l6_4WeJlj1-ZS4eGO6bJYAuQm2L40ygdFBZ8UzajTDng5rU_mbbHEg3VBbJKgsxSyLLPJn_1OnpcqGxAHq70G096D8lVAX6mtpbvRMz4Rcs4YzSBPlCezy_vYRn8UBv2OTAjdDru9Yi8sJV_FW9OFf21o5St35rvbraMO0fMMpKvrbpcR-9KAevi_mdnrA_a2DunfbfW_wH77hhijtS7BeEP4uq8OQ6uF3SM8Aug",
+    "expiry_date": 1738730333965
+  },
+  "eagerRefreshThresholdMillis": 300000,
+  "forceRefreshOnFailure": false,
+  "universeDomain": "googleapis.com",
+  "projectId": null,
+  "transporter": {
+    "instance": {
+      "agentCache": {},
+      "defaults": {},
+      "interceptors": { "request": {}, "response": {} }
+    }
+  },
+  "certificateCache": {},
+  "certificateExpiry": null,
+  "certificateCacheFormat": "PEM",
+  "refreshTokenPromises": {},
+  "_clientId": "1055020860498-m22eq5r96pt77mhhfb3hc76l97le9rf7.apps.googleusercontent.com",
+  "_clientSecret": "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",
+  "endpoints": {
+    "tokenInfoUrl": "https://oauth2.googleapis.com/tokeninfo",
+    "oauth2AuthBaseUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+    "oauth2TokenUrl": "https://oauth2.googleapis.com/token",
+    "oauth2RevokeUrl": "https://oauth2.googleapis.com/revoke",
+    "oauth2FederatedSignonPemCertsUrl": "https://www.googleapis.com/oauth2/v1/certs",
+    "oauth2FederatedSignonJwkCertsUrl": "https://www.googleapis.com/oauth2/v3/certs",
+    "oauth2IapPublicKeyUrl": "https://www.gstatic.com/iap/verify/public_key"
+  },
+  "clientAuthentication": "ClientSecretPost",
+  "issuers": [
+    "accounts.google.com",
+    "https://accounts.google.com",
+    "googleapis.com"
+  ]
+},
+
+{"_events":{},"_eventsCount":0,"credentials":{},"eagerRefreshThresholdMillis":300000,"forceRefreshOnFailure":false,"universeDomain":"googleapis.com","projectId":null,"transporter":{"instance":{"agentCache":{},"defaults":{},"interceptors":{"request":{},"response":{}}}},"certificateCache":{},"certificateExpiry":null,"certificateCacheFormat":"PEM","refreshTokenPromises":{},"_clientId":"1055020860498-m22eq5r96pt77mhhfb3hc76l97le9rf7.apps.googleusercontent.com","_clientSecret":"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","redirectUri":["http://localhost:4000/oauth2callback","http://localhost:3002/oauth2callback"],"endpoints":{"tokenInfoUrl":"https://oauth2.googleapis.com/tokeninfo","oauth2AuthBaseUrl":"https://accounts.google.com/o/oauth2/v2/auth","oauth2TokenUrl":"https://oauth2.googleapis.com/token","oauth2RevokeUrl":"https://oauth2.googleapis.com/revoke","oauth2FederatedSignonPemCertsUrl":"https://www.googleapis.com/oauth2/v1/certs","oauth2FederatedSignonJwkCertsUrl":"https://www.googleapis.com/oauth2/v3/certs","oauth2IapPublicKeyUrl":"https://www.gstatic.com/iap/verify/public_key"},"clientAuthentication":"ClientSecretPost","issuers":["accounts.google.com","https://accounts.google.com","googleapis.com"]}
