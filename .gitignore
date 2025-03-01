@@ -54,7 +54,7 @@ ios/Podfile.lock
 .expo/
 .expo-shared/
 metro.config.js
-babel.config.js
+
 
 # React production build
 g-react/build/
