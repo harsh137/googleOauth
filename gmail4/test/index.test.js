@@ -1,11 +1,11 @@
 const request = require("supertest");
-const {app} = require("./index");
+const {app} = require("../index");
 
 describe("Google OAuth and Drive API Tests", () => {
   let authToken;
 
   beforeEach(() => {
-    authToken = "ya29.a0AXeO80Rwh86UUKtvPN_mi8pwM9rlK_my_F0kjnEDJRhSpNPrKCiQgwzA-LQNzj_XuRYWBZaOjrOD75oaggtiAhCWqTQdYhHcaCWDnO6rGHl8LCkeJCwFmmdhjuaIe_vqciLQ3-rFrraxzBFlMyqgiEXnC9IG0_u1D0VfwJPWHAaCgYKAVcSARISFQHGX2MiczfenBKcgfVzV9W9We8hWQ0177"  });
+    authToken = "your token"  });
 
   test("GET /api/auth - Should return Google OAuth URL", async () => {
     const res = await request(app).get("/api/auth");
@@ -53,7 +53,7 @@ describe("Google OAuth and Drive API Tests", () => {
   });
 
   test("POST /delete-file - Should delete file with valid token and file ID", async () => {
-    const fileId = "1ylzLcLVZdTl1z61w5X2fiN3K5skMhnkp"; // Replace with a valid file ID for actual testing
+    const fileId = "your fildID"; // Replace with a valid file ID for actual testing
     const res = await request(app)
       .post("/delete-file")
       .set("Authorization", `Bearer ${authToken}`)

@@ -115,7 +115,7 @@ const DashboardScreen = ({ navigation , }) => {
       {access_token ? (
         <WebView
           ref={webViewRef}
-          source={{ uri: `http://10.24.209.93:3000/${screen}` }}
+          source={{ uri: `http://localhost:3000/${screen}` }}
           style={{ flex: 1 }}
           javaScriptEnabled={true}
           domStorageEnabled={true}

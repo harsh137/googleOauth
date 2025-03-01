@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Home from "../components/Home";
-import Dashboard from "../components/Dashboard";
-import GmailDashboard from "../components/GmailDashboard";
-import DriveDashboard from "../components/DriveDashboard";
+import Home from "../screen/Home";
+import Dashboard from "../screen/Dashboard";
+import GmailDashboard from "../screen/GmailDashboard";
+import DriveDashboard from "../screen/DriveDashboard";
 
 // function PrivateRoute({ children }) {
 //   return localStorage.getItem("auth") ? children : <Navigate to="/" />;

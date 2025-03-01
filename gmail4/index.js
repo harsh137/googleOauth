@@ -120,11 +120,11 @@ app.get("/oauth2callback", async (req, res) => {
 
     // Redirect to dashboard with tokens as query parameters
     return res.redirect(
-      `http://10.24.209.93:3000/dashboard?access_token=${tokens.access_token}&id_token=${tokens.id_token}`
+      `http://localhost:3000/dashboard?access_token=${tokens.access_token}&id_token=${tokens.id_token}`
     );
   } catch (error) {
     console.error("Error retrieving access token", error); 
-    return res.redirect("http://10.24.209.93:3000?error=AuthFailed");
+    return res.redirect("http://localhost:3000?error=AuthFailed");
   }
 });
 
@@ -440,7 +440,7 @@ app.post("/update-file", async (req, res) => {
 
 // Start server listening on the specified port
 if(require.main === module){
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 }

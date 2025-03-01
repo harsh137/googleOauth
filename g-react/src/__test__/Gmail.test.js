@@ -5,7 +5,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import GmailDashboard from "../components/GmailDashboard";
+import GmailDashboard from "../screen/GmailDashboard";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 // import { MemoryRouter } from "react-router-dom";
@@ -108,7 +108,7 @@ describe("GmailDashboard", () => {
     );
 
     render(<GmailDashboard />);
-    expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/read-email", {
+    expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/read-email", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,7 @@ describe("GmailDashboard", () => {
     global.fetch = jest.fn(() => Promise.reject("API is down"));
 
     render(<GmailDashboard />);
-    expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/read-email", {
+    expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/read-email", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +170,7 @@ describe("GmailDashboard", () => {
     fireEvent.click(screen.getByTestId("send-email"));
     // Ensure API was called with correct data
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/send-email", {
+      expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

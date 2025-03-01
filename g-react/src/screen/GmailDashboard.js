@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
+  
   Typography,
   Button,
   Container,
@@ -13,13 +12,14 @@ import {
   List,
   ListItem,
   ListItemText,
-  IconButton,
+  
   Drawer,
   useMediaQuery,
   useTheme,
   CircularProgress,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+
+import Appbar from "../components/Appbar";
 
 const GmailDashboard = () => {
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://10.24.209.93:3002/api/labels", {
+      const response = await fetch("http://localhost:3002/api/labels", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://10.24.209.93:3002/api/read-email", {
+      const response = await fetch("http://localhost:3002/api/read-email", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://10.24.209.93:3002/api/send-email", {
+      const response = await fetch("http://localhost:3002/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -166,45 +166,7 @@ const GmailDashboard = () => {
 
   return (
     <Container>
-      {!JSON.parse(isWebView) && (
-        <AppBar position="static" data-testid="appbar">
-          <Toolbar>
-            {isMobile && (
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={() => setDrawerOpen(true)}
-                data-testid="menu-button"
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-            <Typography
-              variant="h6"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
-              onClick={() => navigate("/dashboard")}
-              data-testid="dashboard-title"
-            >
-              Gmail Dashboard
-            </Typography>
-            <Button
-              color="inherit"
-              onClick={() => setOpenSendModal(true)}
-              sx={{ marginRight: 2 }}
-              data-testid="send-email-button"
-            >
-              Send Email
-            </Button>
-            <Button
-              color="inherit"
-              onClick={handleLogout}
-              data-testid="logout-button"
-            >
-              Logout
-            </Button>
-          </Toolbar>
-        </AppBar>
-      )}
+      <Appbar {...{ isMobile, isWebView, setDrawerOpen, navigate, setOpenSendModal, handleLogout }}/>
 
       <Drawer
         anchor="left"

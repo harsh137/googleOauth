@@ -5,7 +5,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Home from "../components/Home";
+import Home from "../screen/Home";
 import { useNavigate } from "react-router-dom";
 
 // import { MemoryRouter } from "react-router-dom";
