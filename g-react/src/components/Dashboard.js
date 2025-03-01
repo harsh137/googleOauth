@@ -16,7 +16,7 @@ function Dashboard() {
   useEffect(() => {
     
     
-      console.log("THis is elsw")
+      
       
       
         const accessToken = searchParams.get("access_token");
@@ -46,7 +46,7 @@ function Dashboard() {
     <Container>
       {/* {!isWebView && <AppBar />} */}
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom data-testid="Welcome-To-Dashboard">
           Welcome to Your Dashboard
         </Typography>
         <Button variant="contained" color="primary" onClick={() => navigate("/gmail")} style={{ marginBottom: 10 }}>

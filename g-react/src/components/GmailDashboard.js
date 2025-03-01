@@ -17,9 +17,9 @@ import {
   Drawer,
   useMediaQuery,
   useTheme,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 
 const GmailDashboard = () => {
   const navigate = useNavigate();
@@ -34,29 +34,25 @@ const GmailDashboard = () => {
   const [isWebView, setIsWebView] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
   const theme = useTheme();
 
   useEffect(() => {
-
     const handleOpenSendModal = (event) => {
       if (event.detail) {
         setOpenSendModal(true);
       }
     };
 
-    window.addEventListener('openSendModal', handleOpenSendModal);
+    window.addEventListener("openSendModal", handleOpenSendModal);
 
     return () => {
-      window.removeEventListener('openSendModal', handleOpenSendModal);
+      window.removeEventListener("openSendModal", handleOpenSendModal);
     };
   }, []);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    
     // window.addEventListener('authTokenSet');
     // alert(localStorage.getItem("is_webview"));
     setIsWebView(localStorage.getItem("is_webview"));
@@ -82,7 +78,6 @@ const GmailDashboard = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      
 
       const data = await response.json();
       if (data && data.labels) {
@@ -139,8 +134,6 @@ const GmailDashboard = () => {
         }),
       });
 
-     
-
       if (response.ok) {
         alert("Email sent successfully!");
         setOpenSendModal(false);
@@ -159,13 +152,17 @@ const GmailDashboard = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({ action: "logout" }));
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ action: "logout" })
+      );
     } else {
       navigate("/");
     }
   };
 
-  const filteredEmails = emails.filter(email => email.labels.includes(selectedLabel));
+  const filteredEmails = emails.filter((email) =>
+    email.labels.includes(selectedLabel)
+  );
 
   return (
     <Container>
@@ -184,8 +181,8 @@ const GmailDashboard = () => {
             )}
             <Typography
               variant="h6"
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              onClick={() => console.log("Navigate to /Dashboard")}
+              sx={{ flexGrow: 1, cursor: "pointer" }}
+              onClick={() => navigate("/dashboard")}
               data-testid="dashboard-title"
             >
               Gmail Dashboard
@@ -198,17 +195,30 @@ const GmailDashboard = () => {
             >
               Send Email
             </Button>
-            <Button color="inherit" onClick={handleLogout} data-testid="logout-button">
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              data-testid="logout-button"
+            >
               Logout
             </Button>
           </Toolbar>
         </AppBar>
       )}
 
-      <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)} data-testid="drawer">
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        data-testid="drawer"
+      >
         <Box width={250}>
           <List>
-          <ListItem button onClick={() => setDrawerOpen(false)} data-testid="All-Email">
+            <ListItem
+              button
+              onClick={() => setDrawerOpen(false)}
+              data-testid="All-Email"
+            >
               <ListItemText primary="All Email" />
             </ListItem>
             {labels.map((label) => (
@@ -225,7 +235,6 @@ const GmailDashboard = () => {
                 <ListItemText primary={label.name} />
               </ListItem>
             ))}
-            
           </List>
         </Box>
       </Drawer>
@@ -248,51 +257,105 @@ const GmailDashboard = () => {
           </Box>
         )}
 
-        <Box width={isMobile ? "100%" : "80%"} display="flex" flexDirection="column" alignItems="center">
-          <Box width="100%" display="grid" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={2}>
+        <Box
+          width={isMobile ? "100%" : "80%"}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Box
+            width="100%"
+            display="grid"
+            gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+            gap={2}
+          >
             {loading ? (
-              <Box display="flex" justifyContent="center" alignItems="center" width="100%" data-testid="loading">
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                width="100%"
+                data-testid="loading"
+              >
                 <CircularProgress />
               </Box>
+            ) : filteredEmails.length > 0 ? (
+              filteredEmails.map((email, index) => (
+                <Paper
+                  key={index}
+                  sx={{
+                    p: 2,
+                    cursor: "pointer",
+                    transition: "0.3s",
+                    "&:hover": { bgcolor: "#f5f5f5" },
+                  }}
+                  onClick={() => setSelectedEmail(email)}
+                  data-testid="email-item"
+                >
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    {email.title}
+                  </Typography>
+                  <Typography variant="body2">{email.subject}</Typography>
+                </Paper>
+              ))
             ) : (
-              filteredEmails.length > 0 ? (
-                filteredEmails.map((email, index) => (
-                  <Paper
-                    key={index}
-                    sx={{ p: 2, cursor: "pointer", transition: "0.3s", "&:hover": { bgcolor: "#f5f5f5" } }}
-                    onClick={() => setSelectedEmail(email)}
-                    data-testid={`email-${index}`}
-                  >
-                    <Typography variant="subtitle1" fontWeight="bold">
-                      {email.title}
-                    </Typography>
-                    <Typography variant="body2">{email.subject}</Typography>
-                  </Paper>
-                ))
-              ) : (
-                <Typography variant="body2" color="textSecondary" data-testid="no-emails">
-                  No emails found.
-                </Typography>
-              )
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                data-testid="no-emails"
+              >
+                No emails found.
+              </Typography>
             )}
           </Box>
         </Box>
       </Box>
 
       {/* Email Details Modal */}
-      <Modal open={!!selectedEmail} onClose={() => setSelectedEmail(null)} data-testid="email-modal">
+      <Modal
+        open={!!selectedEmail}
+        onClose={() => setSelectedEmail(null)}
+        data-testid="email-modal"
+      >
         <Box
-          sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-            bgcolor: "white", p: 3, boxShadow: 24, width: "80%", maxWidth: 600, borderRadius: 2 }}
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            p: 3,
+            boxShadow: 24,
+            width: "80%",
+            maxWidth: 600,
+            borderRadius: 2,
+          }}
         >
           {selectedEmail && (
             <>
-              <Typography variant="h6" fontWeight="bold">{selectedEmail.title}</Typography>
-              <Typography variant="subtitle1" sx={{ mb: 2 }}>{selectedEmail.subject}</Typography>
-              <Box sx={{ maxHeight: "400px", overflowY: "auto", p: 2, border: "1px solid #ddd" }}>
+              <Typography variant="h6" fontWeight="bold">
+                {selectedEmail.title}
+              </Typography>
+              <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                {selectedEmail.subject}
+              </Typography>
+              <Box
+                sx={{
+                  maxHeight: "400px",
+                  overflowY: "auto",
+                  p: 2,
+                  border: "1px solid #ddd",
+                }}
+              >
                 <div dangerouslySetInnerHTML={{ __html: selectedEmail.body }} />
               </Box>
-              <Button onClick={() => setSelectedEmail(null)} variant="contained" color="primary" sx={{ mt: 2 }} data-testid="close-modal">
+              <Button
+                onClick={() => setSelectedEmail(null)}
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2 }}
+                data-testid="close-modal"
+              >
                 Close
               </Button>
             </>
@@ -301,16 +364,62 @@ const GmailDashboard = () => {
       </Modal>
 
       {/* Send Email Modal */}
-      <Modal open={openSendModal} onClose={() => setOpenSendModal(false)} data-testid="send-modal">
-        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-          bgcolor: "white", p: 3, boxShadow: 24, width: "80%", maxWidth: 600, borderRadius: 2 }}>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>Send Email</Typography>
-          
-          <TextField label="To" fullWidth sx={{ mb: 2 }} value={emailTo} onChange={(e) => setEmailTo(e.target.value)} data-testid="email-to" />
-          <TextField label="Subject" fullWidth sx={{ mb: 2 }} value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} data-testid="email-subject" />
-          <TextField label="Body" fullWidth multiline rows={4} sx={{ mb: 2 }} value={emailBody} onChange={(e) => setEmailBody(e.target.value)} data-testid="email-body" />
-          
-          <Button onClick={sendEmail} variant="contained" color="primary" data-testid="send-email">
+      <Modal
+        open={openSendModal}
+        onClose={() => setOpenSendModal(false)}
+        data-testid="send-modal"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            p: 3,
+            boxShadow: 24,
+            width: "80%",
+            maxWidth: 600,
+            borderRadius: 2,
+          }}
+        >
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+            Send Email
+          </Typography>
+
+          <TextField
+            label="To"
+            fullWidth
+            sx={{ mb: 2 }}
+            value={emailTo}
+            onChange={(e) => setEmailTo(e.target.value)}
+            data-testid="email-to"
+          />
+          <TextField
+            label="Subject"
+            fullWidth
+            sx={{ mb: 2 }}
+            value={emailSubject}
+            onChange={(e) => setEmailSubject(e.target.value)}
+            data-testid="email-subject"
+          />
+          <TextField
+            label="Body"
+            fullWidth
+            multiline
+            rows={4}
+            sx={{ mb: 2 }}
+            value={emailBody}
+            onChange={(e) => setEmailBody(e.target.value)}
+            data-testid="email-body"
+          />
+
+          <Button
+            onClick={sendEmail}
+            variant="contained"
+            color="primary"
+            data-testid="send-email"
+          >
             Send
           </Button>
         </Box>

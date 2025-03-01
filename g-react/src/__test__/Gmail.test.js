@@ -4,39 +4,40 @@
 
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
 import GmailDashboard from "../components/GmailDashboard";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 // import { MemoryRouter } from "react-router-dom";
 
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
   useNavigate: jest.fn(),
 }));
 
-const useNavigateMock = jest.mocked(useNavigate)
 
-jest.mock('@mui/material', () => ({
-  ...jest.requireActual('@mui/material'),
-  useMediaQuery: jest.fn()
+
+jest.mock("@mui/material", () => ({
+  ...jest.requireActual("@mui/material"),
+  useMediaQuery: jest.fn(),
 }));
-const useMediaQueryMock = jest.mocked(useMediaQuery)
-
+const useMediaQueryMock = jest.mocked(useMediaQuery);
 
 
 global.React = React;
 
-
 describe("GmailDashboard", () => {
   beforeEach(() => {
-    localStorage.setItem("access_token", "ya29.a0AeXRPp6VAchYGZ1UWOJnQ4ZvgHpM-ym3QfGPMr0aGk6NCCu9raET1xgSyBTUfMQhnJ5AExfrowFG1HdX0BPPmgtjIRtAY4SATBIIYaiULsXCSB7KJL3-6ymb7WpZot6tL2doaD4gBMHA_fpTQ5BA_M4dmJpy3ZsVV-T8gdrEswaCgYKAeASARISFQHGX2MillxX0KsQZ-telg6Nel5lPw0177");
-    localStorage.setItem("id_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc2M2Y3YzRjZDI2YTFlYjJiMWIzOWE4OGY0NDM0ZDFmNGQ5YTM2OGIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDU1MDIwODYwNDk4LW0yMmVxNXI5NnB0NzdtaGhmYjNoYzc2bDk3bGU5cmY3LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA1NTAyMDg2MDQ5OC1tMjJlcTVyOTZwdDc3bWhoZmIzaGM3Nmw5N2xlOXJmNy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwMjAzODA5NzYzNDg3MDgxNjYyMSIsImVtYWlsIjoiZ3VwdGFoYXJzaDEzN0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IlRrUGwtN2lxQVl0VkhpOGFCMTFCQVEiLCJuYW1lIjoiaGFyc2ggZ3VwdGEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSVh1ZlAtblcwWldZOXc0bWdNR0Z0QWZ5M3I2TUtHc2dWMkQzSVhaVFB4WkV6SndpeVloZz1zOTYtYyIsImdpdmVuX25hbWUiOiJoYXJzaCIsImZhbWlseV9uYW1lIjoiZ3VwdGEiLCJpYXQiOjE3NDA0Nzg2NDksImV4cCI6MTc0MDQ4MjI0OX0.Xr7pdk4wodcUZKmw9xtusA7rKLp9xEQbsaXgpw5SUQuS_5bbklnHUFA7oQhuSRQ8c2rIQ3iDVR1Dk6_9dfYBXpalZ43umgM54-4EscoKeI6g5lFaHpH4vWyFyUtM03XL1Hh8_j3z64xkCA5_HBkY9UiL4WFeUQpKxzsfEJBDIyg33MbX3jDBDeZZE9O1yhn2cGvvL1EixhHnLjYoiL0A3CVDCL93G2LBH7EycCeDC3iHhLh5_cgSOpy_RkZa1LIa7TMAVBQarcwNYs5EEnE19vwKduzWbJg6DQIxt1v2KL8Rv2M5kA3c8GMutsGdyIMLcnpAQB0bgBg31J6eBSmueA");
-    localStorage.setItem('is_webview',"false");
-    const navigateMock = jest.fn()
+    localStorage.setItem(
+      "access_token","Hello"
+    );
+    localStorage.setItem(
+      "id_token","Hello ID"
+    );
+    localStorage.setItem("is_webview", "false");
+    
 
-  useNavigateMock.mockReturnValue(navigateMock)
+    
   });
 
   afterEach(() => {
@@ -48,36 +49,150 @@ describe("GmailDashboard", () => {
     render(<GmailDashboard />);
     expect(screen.getByTestId("appbar")).toBeInTheDocument();
   });
-  
-  test("opens and closes the drawer", async() => {
 
-  useMediaQueryMock.mockReturnValue(true)
+  test("opens and closes the drawer", async () => {
+    useMediaQueryMock.mockReturnValue(true);
     render(<GmailDashboard />);
     expect(useMediaQueryMock).toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("menu-button"));
     expect(screen.getByTestId("drawer")).toBeInTheDocument();
     fireEvent.click(screen.getByTestId("All-Email"));
-    await waitFor(() => expect(screen.queryByTestId("drawer")).not.toBeInTheDocument());
-
+    await waitFor(() =>
+      expect(screen.queryByTestId("drawer")).not.toBeInTheDocument()
+    );
   });
 
-
-    
-  
-  
   test("opens send email modal", () => {
-    render(<GmailDashboard  />);
+    render(<GmailDashboard />);
     fireEvent.click(screen.getByTestId("send-email-button"));
     expect(screen.getByTestId("send-modal")).toBeInTheDocument();
   });
 
   test("navigates to another page when clicking on Gmail Dashboard", () => {
+    const mockNavigate = jest.fn();
+    useNavigate.mockReturnValue(mockNavigate); 
     render(<GmailDashboard />);
     fireEvent.click(screen.getByTestId("dashboard-title"));
-    expect(useNavigateMock).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalled();
+  });
+
+  test("opens send email modal and fills out the form", async () => {
+    render(<GmailDashboard />);
+    fireEvent.click(screen.getByTestId("send-email-button"));
+    expect(screen.getByTestId("send-modal")).toBeInTheDocument();
+
+    const recipientInput = screen.getByLabelText("To");
+    const subjectInput = screen.getByLabelText("Subject");
+    const bodyInput = screen.getByLabelText("Body");
+
+    fireEvent.change(recipientInput, { target: { value: "test@example.com" } });
+    fireEvent.change(subjectInput, { target: { value: "Test Subject" } });
+    fireEvent.change(bodyInput, { target: { value: "This is a test email body." } });
+
+    expect(recipientInput.value).toBe("test@example.com");
+    expect(subjectInput.value).toBe("Test Subject");
+    expect(bodyInput.value).toBe("This is a test email body.");
+  });
+  
+
+  test("fetchEmails sets emails and loading state correctly", async () => {
+    const mockEmails = [
+      { id: 1, title: "guptaharsh1378@gmail.com", subject: "harsh1", body: "harsh11\n", labels: ["UNREAD", "SENT", "INBOX"] },
+      { id: 2, title: "guptaharsh137@gmail.com", subject: "harsh2", body: "harsh12\n", labels: ["UNREAD", "SENT", "INBOX"] },
+    ];
+
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ emails: mockEmails }),
+      })
+    );
+
+    render(<GmailDashboard />);
+    expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/read-email", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer Hello`,
+      },
+    });
+
+
+    
+    
+     const emailItems = await screen.findAllByTestId("email-item");
+     expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
+     expect(emailItems.length).toBe(mockEmails.length);
+     
+
+    global.fetch.mockRestore();
+  });
+
+  test("fetchEmails handles errors and sets loading state correctly", async () => {
+    global.fetch = jest.fn(() => Promise.reject("API is down"));
+
+    render(<GmailDashboard />);
+    expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/read-email", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer Hello`,
+      },
+    });
+
+    await waitFor(() => expect(screen.queryByText("guptaharsh1378@gmail.com")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText("guptaharsh137@gmail.com")).not.toBeInTheDocument());
+
+    global.fetch.mockRestore();
+  });
+
+  test("opens modal, fills email details, and sends email successfully", async () => {
+    render(<GmailDashboard />);
+    // Open the "Send Email" modal
+    fireEvent.click(screen.getByText("Send Email")); // Assuming a button exists
+    // Ensure modal appears
+    expect(screen.getByTestId("send-modal")).toBeInTheDocument();
+    // Fill in email details (query the actual input inside TextField)
+    fireEvent.change(screen.getByLabelText("To"), {
+      target: { value: "recipient@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Subject"), {
+      target: { value: "Test Subject" },
+    });
+    fireEvent.change(screen.getByLabelText("Body"), {
+      target: { value: "This is a test email body." },
+    });
+    // Mock API response for successful email send
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: jest.fn().mockResolvedValue({ message: "Email sent successfully!" }),
+    });
+    // Click send button
+    fireEvent.click(screen.getByTestId("send-email"));
+    // Ensure API was called with correct data
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith("http://10.24.209.93:3002/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer Hello",
+        },
+        body: JSON.stringify({
+          to: "recipient@example.com",
+          subject: "Test Subject",
+          body: "This is a test email body.",
+        }),
+      });
+    });
+    // Ensure modal closes after successful send
+    await waitFor(() => {
+      expect(screen.queryByTestId("send-modal")).not.toBeInTheDocument();
+    });
+  });  
   });
 
 
+
   
-});
+  
+
 

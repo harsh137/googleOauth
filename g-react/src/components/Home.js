@@ -11,6 +11,7 @@ function Home() {
     const authData = localStorage.getItem("access_token");
     const id_token = localStorage.getItem("id_token");
 
+    
     if (authData && id_token) {
       navigate("/dashboard");
     }
@@ -79,10 +80,10 @@ function Home() {
   return (
     <Container>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom data-testid="SignInText">
           Sign in with Google
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleLogin}>
+        <Button variant="contained" color="primary" onClick={handleLogin} data-testid="SignInButton">
           Sign in with Google
         </Button>
       </Box>
