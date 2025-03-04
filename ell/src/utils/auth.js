@@ -20,30 +20,30 @@ const SCOPES= [  "https://www.googleapis.com/auth/gmail.readonly",
 
   
 
-// const insertUser = async (data) => {
-//   try {
-//     const response = await fetch("http://10.24.211.62:3002/api/insert-user", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
+const insertUser = async (data) => {
+  try {
+    const response = await fetch("http://10.24.211.62:3002/api/insert-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         
-//         refresh_token: data.refreshToken,
-//         id_token: data.idToken,
-//       }),
-//     });
+        refresh_token: data.refreshToken,
+        id_token: data.idToken,
+      }),
+    });
 
-//     if (!response.ok) {
-//       throw new Error("Failed to insert user");
-//     }
+    if (!response.ok) {
+      throw new Error("Failed to insert user");
+    }
 
-//     const result = await response.json();
-//     console.log("User inserted successfully:", result);
-//   } catch (error) {
-//     console.error("Error inserting user:", error);
-//   }
-// };
+    const result = await response.json();
+    console.log("User inserted successfully:", result);
+  } catch (error) {
+    console.error("Error inserting user:", error);
+  }
+};
 
 
 export const authenticateUser = async () => {
@@ -59,7 +59,7 @@ export const authenticateUser = async () => {
 
 
         console.log(`Hello ${JSON.stringify(authState)}`);
-        // await insertUser(authState);
+        await insertUser(authState);
 
     return {
       accessToken: authState.accessToken,

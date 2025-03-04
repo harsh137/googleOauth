@@ -41,19 +41,17 @@ Thumbs.db
 .expo-shared/
 android/.gradle/
 android/app/build/
-ios/Pods/
+
 ios/build/
 ios/.bundle/
 ios/.DS_Store
-ios/*.xcodeproj/project.xcworkspace/
+
 ios/*.xcodeproj/xcuserdata/
 ios/*.xcodeproj/project.xcworkspace/xcuserdata/
 ios/Podfile.lock
 
-# React Native Metro bundler files
-.expo/
-.expo-shared/
-metro.config.js
+
+
 
 
 # React production build
