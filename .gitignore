@@ -37,9 +37,7 @@ lerna-debug.log*
 Thumbs.db
 
 # React & React Native build files
-*.expo/
-.expo-shared/
-android/.gradle/
+
 android/app/build/
 
 ios/build/
