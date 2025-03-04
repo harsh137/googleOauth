@@ -1,7 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 
-import { authenticateUser } from '../utils/auth';
+import { authenticateUser , newAccessToken} from '../utils/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { Image } from 'react-native';
@@ -18,47 +18,41 @@ export default function HomeScreen({ navigation }) {
     checkAuth();
   },[]);
 
-  const handleLogin = async () => {
+  const handleLogin = async (screen) => {
     try {
-    const accessToken = await AsyncStorage.getItem('gmailAccessToken');
+    const accessToken = await AsyncStorage.getItem('AccessToken');
     const idToken = await AsyncStorage.getItem('idToken');
-    if (accessToken && idToken) {
-      navigation.navigate('Dashboard', { screen: 'gmail' });
+    const expiryTime = await AsyncStorage.getItem('expiryTime');
+    if (accessToken && idToken && expiryTime) {
+      if (new Date(expiryTime) > new Date()) {
+
+      navigation.navigate('Dashboard', { screen: screen });
       return;
-    }
-      setLoading(true);
-      const tokens = await authenticateUser('gmail');
-      if (tokens?.accessToken && tokens?.idToken) {
-        await AsyncStorage.setItem('gmailAccessToken', tokens.accessToken);
-        await AsyncStorage.setItem('idToken', tokens.idToken);
-        await AsyncStorage.setItem('screen', 'gmail');
-        navigation.navigate('Dashboard',{screen: 'gmail'});
-      } else {
-        Alert.alert('Authentication Failed', 'No tokens received. Please try again.');
       }
-    } catch (error) {
-      console.error('Login Error:', error);
-      Alert.alert('Login Error', 'Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
+      else{
+        const idToken=await AsyncStorage.getItem('idToken');
+        
+        
+        const newToken=await newAccessToken(idToken);
+        if(newToken.accessToken && newToken.idToken){
+          await AsyncStorage.setItem('AccessToken', newToken.accessToken);
+          await AsyncStorage.setItem('idToken', newToken.idToken);
+          await AsyncStorage.setItem('expiryTime', newToken.expiryTime);
+          await AsyncStorage.setItem('screen', screen);
+          navigation.navigate('Dashboard',{screen: screen});}
+          return;
+      }
+
     }
-  };
-  const handleDriveLogin = async () => {
-    try {
-      const accessToken = await AsyncStorage.getItem('driveAccessToken');
-    const idToken = await AsyncStorage.getItem('idToken');
     
-    if (accessToken && idToken) {
-      navigation.navigate('Dashboard', { screen: 'drive' });
-      return;
-    }
       setLoading(true);
-      const tokens = await authenticateUser('drive');
+      const tokens = await authenticateUser();
       if (tokens?.accessToken && tokens?.idToken) {
-        await AsyncStorage.setItem('driveAccessToken', tokens.accessToken);
+        await AsyncStorage.setItem('AccessToken', tokens.accessToken);
         await AsyncStorage.setItem('idToken', tokens.idToken);
-        await AsyncStorage.setItem('screen', 'drive');
-        navigation.navigate('Dashboard',{screen: 'drive'});
+        await AsyncStorage.setItem('expiryTime', tokens.expiryTime);
+        await AsyncStorage.setItem('screen', screen);
+        navigation.navigate('Dashboard',{screen: screen});
       } else {
         Alert.alert('Authentication Failed', 'No tokens received. Please try again.');
       }
@@ -69,13 +63,14 @@ export default function HomeScreen({ navigation }) {
       setLoading(false);
     }
   };
+  
   return (
     <View style={styles.container}>
       {loading ? (
         <ActivityIndicator size="large" color="#6200EE" />
       ) : (
         <>
-          <Card style={styles.card} onPress={handleLogin}>
+          <Card style={styles.card} onPress={()=>handleLogin('gmail')}>
             <Card.Content>
               <Image source={require('../../assets/gmail.png')} style={styles.logo} />
               <Title>Login with Gmail</Title>
@@ -83,7 +78,7 @@ export default function HomeScreen({ navigation }) {
             </Card.Content>
           </Card>
           
-          <Card style={styles.card} onPress={handleDriveLogin}>
+          <Card style={styles.card} onPress={()=>handleLogin('drive')}>
             <Card.Content>
               <Image source={require('../../assets/drive.png')} style={styles.logo} />
               <Title>Login with Drive</Title>

@@ -17,6 +17,7 @@ jest.mock("react-router-dom", () => ({
 
 
 
+
 jest.mock("@mui/material", () => ({
   ...jest.requireActual("@mui/material"),
   useMediaQuery: jest.fn(),
@@ -108,7 +109,7 @@ describe("GmailDashboard", () => {
     );
 
     render(<GmailDashboard />);
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/read-email", {
+    expect(global.fetch).toHaveBeenCalledWith("http://10.24.211.62:3002/api/read-email", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +132,7 @@ describe("GmailDashboard", () => {
     global.fetch = jest.fn(() => Promise.reject("API is down"));
 
     render(<GmailDashboard />);
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/read-email", {
+    expect(global.fetch).toHaveBeenCalledWith("http://10.24.211.62:3002/api/read-email", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +171,7 @@ describe("GmailDashboard", () => {
     fireEvent.click(screen.getByTestId("send-email"));
     // Ensure API was called with correct data
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith("http://localhost:3002/api/send-email", {
+      expect(global.fetch).toHaveBeenCalledWith("http://10.24.211.62:3002/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,7 +5,7 @@ import { WebView } from 'react-native-webview';
 import { Appbar } from 'react-native-paper';
 import { useRoute } from '@react-navigation/native';
 
-const DashboardScreen = ({ navigation , }) => {
+const DashboardScreen = ({ navigation }) => {
   const route=useRoute();
   const screen=route.params?.screen;
   console.log(screen);
@@ -16,7 +16,7 @@ const DashboardScreen = ({ navigation , }) => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      setAccess_token(await AsyncStorage.getItem(screen==='gmail'?'gmailAccessToken':'driveAccessToken'));
+      setAccess_token(await AsyncStorage.getItem('AccessToken'));
       setId_token(await AsyncStorage.getItem('idToken'));
     };
 
@@ -79,7 +79,7 @@ const DashboardScreen = ({ navigation , }) => {
     }
     AsyncStorage.removeItem(screen==='gmail'?'gmailAccessToken':'driveAccessToken');
     
-    // AsyncStorage.removeItem('idToken');
+    AsyncStorage.removeItem('idToken');
     AsyncStorage.removeItem('screen');
     navigation.navigate('Home'); 
   };
@@ -92,9 +92,7 @@ const DashboardScreen = ({ navigation , }) => {
       setWebViewTitle('Gmail Dashboard');
     } else if (navState.url.includes('drive')) {
       setWebViewTitle('Drive Dashboard');
-    } else {
-      setWebViewTitle('Dashboard');
-    }
+    } 
   };
   const NaviBack = () => {
     AsyncStorage.removeItem('screen');
@@ -115,7 +113,7 @@ const DashboardScreen = ({ navigation , }) => {
       {access_token ? (
         <WebView
           ref={webViewRef}
-          source={{ uri: `http://localhost:3000/${screen}` }}
+          source={{ uri: `http://10.24.211.62:3000/${screen}` }}
           style={{ flex: 1 }}
           javaScriptEnabled={true}
           domStorageEnabled={true}

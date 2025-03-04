@@ -30,7 +30,7 @@ function Home() {
             console.log("Tokens available, refreshing...");
 
             // Refresh token if already authenticated
-            const refreshResponse = await fetch("http://localhost:3002/refresh-token", {
+            const refreshResponse = await fetch("http://10.24.211.62:3002/refresh-token", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function Home() {
         console.log("No valid token found, starting authentication...");
 
         
-        const authResponse = await fetch("http://localhost:3002/api/auth");
+        const authResponse = await fetch("http://10.24.211.62:3002/api/auth");
         
         const data = await authResponse.json(); // Expecting { authUrl: "https://accounts.google.com/..." }
 

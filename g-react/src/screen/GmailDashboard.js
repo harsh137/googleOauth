@@ -71,7 +71,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://localhost:3002/api/labels", {
+      const response = await fetch("http://10.24.211.62:3002/api/labels", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://localhost:3002/api/read-email", {
+      const response = await fetch("http://10.24.211.62:3002/api/read-email", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const GmailDashboard = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await fetch("http://localhost:3002/api/send-email", {
+      const response = await fetch("http://10.24.211.62:3002/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

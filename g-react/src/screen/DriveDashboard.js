@@ -47,7 +47,7 @@ const DriveDashboard = () => {
     try {
       const token = localStorage.getItem("access_token");
       if (!token) throw new Error("User not authenticated.");
-      const response = await fetch("http://localhost:3002/drive-files", {
+      const response = await fetch("http://10.24.211.62:3002/drive-files", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -92,7 +92,7 @@ const DriveDashboard = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
     try {
-      const response = await fetch("http://localhost:3002/upload-file", {
+      const response = await fetch("http://10.24.211.62:3002/upload-file", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // Attach token to request
@@ -111,7 +111,7 @@ const DriveDashboard = () => {
   const handleFileRename = async (fileId) => {
     if (!newFileName) return;
     try {
-      const response = await fetch("http://localhost:3002/update-file", {
+      const response = await fetch("http://10.24.211.62:3002/update-file", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fileId, newFileName }),
@@ -131,7 +131,7 @@ const DriveDashboard = () => {
         alert("User not authenticated. Please log in again.");
         return;
       }
-      const response = await fetch("http://localhost:3002/delete-file", {
+      const response = await fetch("http://10.24.211.62:3002/delete-file", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

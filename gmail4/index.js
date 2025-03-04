@@ -87,7 +87,7 @@ app.get("/oauth2callback", async (req, res) => {
   console.log('I am Here1');
 
   if (!code) {
-    return res.redirect("http://localhost:3000?error=NoAuthorizationCode");
+    return res.redirect("http://10.24.211.62:3000?error=NoAuthorizationCode");
   }
 
   try {
@@ -120,13 +120,77 @@ app.get("/oauth2callback", async (req, res) => {
 
     // Redirect to dashboard with tokens as query parameters
     return res.redirect(
-      `http://localhost:3000/dashboard?access_token=${tokens.access_token}&id_token=${tokens.id_token}`
+      `http://10.24.211.62:3000/dashboard?access_token=${tokens.access_token}&id_token=${tokens.id_token}`
     );
   } catch (error) {
     console.error("Error retrieving access token", error); 
-    return res.redirect("http://localhost:3000?error=AuthFailed");
+    return res.redirect("http://10.24.211.62:3000?error=AuthFailed");
   }
 });
+
+app.post("/api/insert-user", async (req, res) => {
+  try {
+    const { refresh_token, id_token } = req.body;
+    if (!refresh_token || !id_token) {
+      return res.status(400).json({ error: "Missing required fields: refresh_token, id_token" });
+    }
+
+    const decodedToken = jwtDecode(id_token);
+    const { name, email } = decodedToken;
+
+    const DbAuth = await dynamodbAuth();
+    
+
+    const data = { name, email, refresh_token, id_token };
+
+    let result;
+   
+      // Insert user
+      result = await insertUser(data, DbAuth);
+    
+
+    res.json({ success: true, message: "User processed successfully", result });
+  } catch (error) {
+    console.error("Error processing user:", error);
+    res.status(500).json({ error: "Failed to process user" });
+  }
+});
+
+app.get("/api/auth/refresh", async (req, res) => {
+  const id_token = req.headers.authorization?.split(" ")[1] || null;
+  if (!id_token) {
+    return res.status(400).json({ error: "No ID Token provided" });
+  }
+  const id = jwtDecode(id_token);
+  const DbAuth = await dynamodbAuth();
+  const email = id.email;
+  const data = await checkUserIfExist(DbAuth,email);
+  if (!data) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  const refresh_token = data.refresh_token;
+  if (!refresh_token) {
+    return res.status(400).json({ error: "No refresh token available" });
+  }
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,  
+    );
+  oauth2Client.setCredentials({ refresh_token });
+
+  try{
+    const {credentials} = await oauth2Client.refreshAccessToken();
+    console.log('New Access Token:', credentials.access_token);
+    res.json({new_access_token: credentials});
+  }
+  catch(error){
+    console.error('Error refreshing token', error);
+    res.status(500).send('Error refreshing token');
+  }
+
+});
+  
+
 
 
 // Endpoint to generate a new refresh token
@@ -140,8 +204,7 @@ app.get('/api/auth/newRefreshToken', async (req, res) => {
     const url = oauth2Client.generateAuthUrl({
       access_type: "offline",
       scope: SCOPE,
-      prompt:'consent',
-      
+      prompt:'consent', 
     });
 
     console.log(`this is link${url}`);
