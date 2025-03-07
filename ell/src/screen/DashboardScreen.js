@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WebView } from 'react-native-webview';
 import { Appbar } from 'react-native-paper';
 import { useRoute } from '@react-navigation/native';
+import {newAccessToken} from '../utils/auth';
 
 const DashboardScreen = ({ navigation }) => {
   const route=useRoute();
@@ -24,6 +25,42 @@ const DashboardScreen = ({ navigation }) => {
 
   }, []);
 
+  const handleRefreshAccessToken= async()=>{
+    const accessToken = await AsyncStorage.getItem('AccessToken');
+    const idToken = await AsyncStorage.getItem('idToken');
+    const expiryTime = await AsyncStorage.getItem('expiryTime');
+    if (accessToken && idToken && expiryTime) {
+      
+      
+        const idToken=await AsyncStorage.getItem('idToken');
+        
+        
+        const newToken=await newAccessToken(idToken);
+        if(newToken.accessToken && newToken.idToken){
+          await AsyncStorage.setItem('AccessToken', newToken.accessToken);
+          await AsyncStorage.setItem('idToken', newToken.idToken);
+          await AsyncStorage.setItem('expiryTime', newToken.expiryTime);
+          await AsyncStorage.setItem('screen', screen);
+          navigation.navigate('Dashboard',{screen: screen});}
+          return;
+      
+
+    }
+
+
+  }
+  useEffect(() => {
+    const checkTokenExpiry = async () => {
+      const expiryTime = await AsyncStorage.getItem('expiryTime');
+      if (expiryTime && new Date().getTime() > new Date(expiryTime).getTime()) {
+        await handleRefreshAccessToken();
+      }
+    };
+
+    const interval = setInterval(checkTokenExpiry, 60000); // Check every minute
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
   const inject = () => {
     if (webViewRef.current && access_token && id_token) {
       const injectJavaScript = `
@@ -118,7 +155,7 @@ const DashboardScreen = ({ navigation }) => {
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={true}
-          onLoadEnd={inject}
+          onLoadStart={inject}
           webviewDebuggingEnabled={true}
           onNavigationStateChange={handleNavigationStateChange}
           renderLoading={() => <ActivityIndicator size="large" color="green" style={styles.loader} />}
